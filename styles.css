@@ -1,0 +1,72 @@
+body {
+    background-color: #E7E7E7;
+    font-family: 'McLaren', sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 25px;
+    margin-top: 50px;
+    margin-bottom: 35px;
+    color: #7E5E5E;
+}
+
+#board {
+    border:solid;
+    width:80%;
+    height:70vh;
+    margin:auto;
+    font-size:16px;
+    border-radius: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: #C09C9C;
+    border-radius: 8px 8px 0 0;
+}
+
+#addEntry {
+    margin: 13px;
+    margin-left:20px;
+    padding: 5px 10px;
+    background-color: #d9d9d968;
+    font-family: 'McLaren', sans-serif;
+    font-size:16px;
+    color: white;
+    border:none;
+    border-radius:5px;
+}
+
+#addEntry:hover {
+    background-color: #d9d9d950;
+}
+
+#addEntry:active {
+    background-color: #d9d9d92e;
+}
+
+#date {
+    margin: 13px;
+    margin-right:20px;
+    padding: 5px 10px;
+    color: white;
+}
+
+#calendar {
+    /* border:solid; */
+    height: 65%;
+    margin: 30px;
+    display: grid;
+    grid-template-rows: auto 1fr; 
+    grid-template-columns: 20% 80%;
+}
+
+#days {
+    border:solid;
+}
+
+#months, #boxes {
+    border:solid;
+}
