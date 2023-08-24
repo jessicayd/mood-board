@@ -11,6 +11,10 @@ h1 {
     color: #7E5E5E;
 }
 
+#mood {
+    color: #c75a5a;
+}
+
 #board {
     border:solid;
     border-color: #6F4A20;
