@@ -1,5 +1,5 @@
 body {
-    background-color: #E7E7E7;
+    background-color: #f7f7f7;
     font-family: 'McLaren', sans-serif;
     text-align: center;
 }
@@ -13,6 +13,7 @@ h1 {
 
 #board {
     border:solid;
+    border-color: #6F4A20;
     width:80%;
     height:70vh;
     margin:auto;
@@ -34,7 +35,7 @@ nav {
     background-color: #d9d9d968;
     font-family: 'McLaren', sans-serif;
     font-size:16px;
-    color: white;
+    color: #F9F9F9;
     border:none;
     border-radius:5px;
 }
@@ -49,24 +50,64 @@ nav {
 
 #date {
     margin: 13px;
-    margin-right:20px;
-    padding: 5px 10px;
-    color: white;
+    margin-right:33px;
+    padding: 5px 0;
+    color: #F9F9F9;
 }
 
 #calendar {
-    /* border:solid; */
     height: 65%;
     margin: 30px;
     display: grid;
     grid-template-rows: auto 1fr; 
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 12% 88%;
 }
 
 #days {
-    border:solid;
+    margin:2px;
+    display: grid;
+    grid-template-columns: repeat(31, 1fr);
+    column-gap: 1.5px;
 }
 
-#months, #boxes {
-    border:solid;
+#boxes {
+    border:solid #574a3c9c;
+    border-radius:5px;
+    display: grid;
+    grid-template-columns: repeat(31, 1fr);
+    grid-template-rows: repeat(12, 1fr);
 }
+
+#months {
+    display: grid;
+    grid-template-rows: repeat(12, 1fr);
+    row-gap: 1.5px;
+    margin:2px;
+}
+
+.day {
+    padding: 4px 0;
+    background-color: #C09C9C;
+    border-radius:3px;
+    color: #F9F9F9;
+    font-size: 13px;
+}
+
+.month {
+    text-align:right;
+    padding: 3px 10px;
+    background-color: #C09C9C;
+    border-radius:5px;
+    color: #F9F9F9;
+    font-size: 13px;
+}
+
+.box{
+    border: 0.5px solid #574a3c3a; 
+    background-color:#cbc8c84f;
+}
+
+.firstCol { border-left: 0; }
+.lastCol { border-right: 0; }
+.firstRow { border-top: 0; }
+.lastRow { border-bottom: 0; }
