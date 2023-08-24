@@ -2,6 +2,8 @@ function createBoard() {
     const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
     const date = new Date();
     document.getElementById("date").innerHTML = `${monthNames[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()}`;
+    document.getElementById("datePopup").valueAsDate = date;
+    
 
     const daysContainer = document.getElementById("days");
     for (let i = 1; i <= 31; i++) {
@@ -48,6 +50,10 @@ function getHex() {
         currBox.style.backgroundColor = `#${hexInput.value}`;
         console.log("hi")
     });
+}
+
+function pickColor() {
+    
 }
 
 document.addEventListener('DOMContentLoaded', function() {
