@@ -22,7 +22,14 @@
             <div id="months"></div>
             <div id="boxes"></div>
         </div>
-        <div id="colorSlider"></div>
+        <div id="colorSlider">
+            <form id="numberForm">
+                <label for="numberInput">Enter the date as month,day like 0,0 and a hex without # like 546b5a: </label>
+                <input type="text" id="dateInput" name="dateInput" required>
+                <input type="text" id="hexInput" name="hexInput" maxlength="6" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 
     <script> var exports = {}; </script>
