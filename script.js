@@ -1,13 +1,16 @@
 const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 const currDate = new Date();
 const year = currDate.getFullYear();
+const month = currDate.getMonth();
+const day = currDate.getDate();
 
 const popup = document.getElementById('popup');
 const overlay = document.getElementById('overlay');
 
 function createBoard() {
     document.getElementById("date").innerHTML = `${monthNames[currDate.getMonth()]} ${currDate.getDate()}, ${year}`;
-    document.getElementById("datePopup").valueAsDate = currDate;
+    console.log(currDate)
+    document.getElementById("datePopup").valueAsDate = new Date(year, month, day);
     
 
     const daysContainer = document.getElementById("days");
@@ -45,8 +48,29 @@ function getHex() {
     popup.addEventListener('submit', function(event) {
         event.preventDefault(); 
 
+        // get value of picker
+        const colorValue = document.getElementById("picker").value;
+        console.log(colorValue)
+        let hexColor;
+
+        let red;
+        let green;
+        let blue;
+
+        if (colorValue <= 50) {
+            red = 138+Math.floor(99*colorValue/50);
+            green = 186+Math.floor(8*colorValue/50);
+            blue = 211+Math.floor(5*colorValue/50);
+            hexColor = `rgb(${red}, ${green}, ${blue})`;
+        } else {
+            red = 237+Math.floor(15*(colorValue-50)/50);
+            green = 194+Math.floor(52*(colorValue-50)/50);
+            blue = 216+Math.floor(19*(colorValue-50)/50);
+            hexColor = `rgb(${red}, ${green}, ${blue})`;
+        }
+
         // const hexInput = document.getElementById('picker');
-        const hexInput = "c9ae61"; // temp
+        // const hexInput = "c9ae61"; // temp
         const dateInput = document.getElementById('datePopup');
         const date = dateInput.value.split("-");
 
@@ -60,7 +84,10 @@ function getHex() {
         document.getElementById('error').style.display = "none";
         
         const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
-        currBox.style.backgroundColor = `#${hexInput}`;
+        currBox.style.backgroundColor = hexColor;
+
+        // reverts back to today's date
+        document.getElementById("datePopup").valueAsDate = new Date(year, month, day);
 
         exitPopup();
     });
@@ -75,9 +102,6 @@ function exitPopup() {
     }, 200);
 }
 
-function pickColor() {
-    
-}
 
 document.addEventListener('DOMContentLoaded', function() {
     createBoard();
