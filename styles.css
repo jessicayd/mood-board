@@ -7,13 +7,15 @@ body {
 
 h1 {
     font-size: 25px;
-    margin-top: 50px;
+    margin-top: 45px;
     margin-bottom: 35px;
     color: #7E5E5E;
 }
 
 #mood {
-    color: #c75a5a;
+    background: linear-gradient(to right, #802929, #dbb1b1 70%, #e4d3d3 100%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
 }
 
 #board {
@@ -44,6 +46,7 @@ nav {
     color: #F9F9F9;
     border:none;
     border-radius:5px;
+    cursor:pointer;
 }
 
 #addEntry:hover {
@@ -147,13 +150,9 @@ input::-webkit-slider-runnable-track {
 
 #slideLabels {
     display: flex;
-    margin: 0 4px;
+    margin: -3px 3px;
     justify-content: space-between;
-}
-
-#slideLabels h2 {
-    margin: 0;
-    font-size: 15px;
+    font-size: 12px;
     font-family: 'McLaren', sans-serif;
 }
 
@@ -173,10 +172,14 @@ input::-webkit-slider-runnable-track {
 #datePopup {
     margin-top: -10px;
     margin-bottom: 10px;
+    border: 1px solid rgb(72, 47, 18); 
+    color: rgb(72, 47, 18);
 }
+
 
 #picker::-webkit-slider-runnable-track{
     cursor: pointer;
+    margin-top:5px;
 }
 
 #picker::-webkit-slider-thumb{
@@ -203,7 +206,7 @@ input::-webkit-slider-runnable-track {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent gray background */
+    background-color: rgba(0, 0, 0, 0.25); /* Semi-transparent gray background */
 }
 
 @keyframes fadein {
@@ -224,7 +227,41 @@ input::-webkit-slider-runnable-track {
     }
 }
 
-button {
+#exit, #submit {
     font-family: 'McLaren', sans-serif;
     border:none;
+    border-radius: 4px;
+}
+
+#submit:hover {
+    background-color: #cdaeae;
+}
+
+#submit:active {
+    background-color: #d5baba;
+}
+
+#submit {
+    color: #F9F9F9;
+    background-color: #c7a3a3;
+    padding:5px;
+    width:70px;
+    cursor:pointer;
+}
+
+#exit {
+    color: #856969;
+    background-color: #f2eaea;
+    position:absolute;
+    right:8px;
+    top:8px;
+    cursor:pointer;
+}
+
+#exit:hover {
+    background-color: #ebe1e1;
+}
+
+#exit:active {
+    background-color: #dfd4d4;
 }
