@@ -1,8 +1,13 @@
+const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const currDate = new Date();
+const year = currDate.getFullYear();
+
+const popup = document.getElementById('popup');
+const overlay = document.getElementById('overlay');
+
 function createBoard() {
-    const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-    const date = new Date();
-    document.getElementById("date").innerHTML = `${monthNames[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()}`;
-    document.getElementById("datePopup").valueAsDate = date;
+    document.getElementById("date").innerHTML = `${monthNames[currDate.getMonth()]} ${currDate.getDate()}, ${year}`;
+    document.getElementById("datePopup").valueAsDate = currDate;
     
 
     const daysContainer = document.getElementById("days");
@@ -37,19 +42,37 @@ function createBoard() {
 }
 
 function getHex() {
-    const form = document.getElementById('numberForm');
+    popup.addEventListener('submit', function(event) {
+        event.preventDefault(); 
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission
+        // const hexInput = document.getElementById('picker');
+        const hexInput = "c9ae61"; // temp
+        const dateInput = document.getElementById('datePopup');
+        const date = dateInput.value.split("-");
 
-        const hexInput = document.getElementById('hexInput');
-        const dateInput = document.getElementById('dateInput');
-        const date = dateInput.value.split(',');
+        if (date[0] != year || date[1] > currDate.getMonth()+1 || (date[1] == currDate.getMonth()+1 && date[2] > currDate.getDate())) {
+            document.getElementById('error').style.display = "block";
+            dateInput.style.marginBottom = "0px";
+            return;
+        }
+
+        dateInput.style.marginBottom = "10px";
+        document.getElementById('error').style.display = "none";
         
-        const currBox = document.getElementById(`${date[0]}${date[1]}`);
-        currBox.style.backgroundColor = `#${hexInput.value}`;
-        console.log("hi")
+        const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
+        currBox.style.backgroundColor = `#${hexInput}`;
+
+        exitPopup();
     });
+}
+
+function exitPopup() {
+    popup.style.animation = "fadeout 0.15s linear forwards";
+    overlay.style.animation = "fadeout 0.15s linear forwards";
+    setTimeout(function() {
+        popup.style.display = "none";
+        overlay.style.display = "none";
+    }, 200);
 }
 
 function pickColor() {
@@ -59,4 +82,13 @@ function pickColor() {
 document.addEventListener('DOMContentLoaded', function() {
     createBoard();
     getHex();
+
+    document.getElementById('addEntry').addEventListener('click', function() {
+        popup.style.display = "block";
+        overlay.style.display = "block";
+        popup.style.animation = "fadein 0.15s linear forwards";
+        overlay.style.animation = "fadein 0.15s linear forwards";
+    })
+
+    document.getElementById('exit').addEventListener('click', exitPopup);
 })

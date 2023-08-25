@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=McLaren&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="overlay"></div>
     <h1>a chro<span id="mood">mood</span>ic scale</h1>
     <div id="board">
         <nav>
@@ -22,40 +23,28 @@
             <div id="months"></div>
             <div id="boxes"></div>
         </div>
-
-        
-        <!-- <div id="colorSlider">
-            <form id="numberForm">
-                <label for="numberInput">Enter the date as month,day like 0,0 and a hex without # like 546b5a: </label>
-                <input type="text" id="dateInput" name="dateInput" required>
-                <input type="text" id="hexInput" name="hexInput" maxlength="6" required>
-                <button type="submit">Submit</button>
-            </form>
-        </div> -->
-
-         <div id="popup">
-            <input type="date" id="datePopup">
-            <form id="colorForm">
-                <label for="colorPicker">Select a Color:</label>
-                <input id="picker" type="range"/><span id="val"></span>
-                <div id="slideLabels">
-                    <h2>sad</h2> <h2>happy</h2> 
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-         </div>
-
-
         <div id="colorSlider">
             <input id="slide" type="range"/><span id="val"></span>
             <div id="slideLabels">
-                <h2>sad</h2> <h2>happy</h2> 
+                <span>sad</span> <span>happy</span> 
             </div>
         </div>
+
+         <div id="popup">
+            <button id="exit">X</button>
+            <input type="date" id="datePopup">
+            <div id="error">choose a date within this year!</div>
+            <form id="colorForm">
+                <label for="colorForm">select a color:</label>
+                <input id="picker" type="range"/><span id="val"></span>
+                <div id="slideLabels">
+                    <span>sad</span> <span>happy</span> 
+                </div>
+                <button type="submit">submit</button>
+            </form>
+         </div>
     </div>
     
-
-    <script> var exports = {}; </script>
     <script src="script.js"></script>
 </body>
 </html>
