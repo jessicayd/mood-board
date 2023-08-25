@@ -211,7 +211,7 @@ input::-webkit-slider-runnable-track {
 
 #overlay {
     display:none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -393,5 +393,11 @@ input::-webkit-slider-runnable-track {
     .month {
         padding: 3px 0;
         border-radius:4px;
+    }
+
+    #reset {
+        top: 85%;
+        right:8px;
+        height:fit-content;
     }
 }
