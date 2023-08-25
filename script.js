@@ -91,4 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     document.getElementById('exit').addEventListener('click', exitPopup);
+
+    document.getElementById('overlay').addEventListener('click', exitPopup);
 })
