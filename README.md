@@ -2,5 +2,6 @@
 visualize the state of your mental health throughout the course of a year 
 
 ## displays
-<img width="1000" alt="IMG_7402" src="https://github.com/jessicayd/mood-board/assets/105768635/3ad71ade-2390-482f-9d72-fa3e786b9079">
+<img width="1000" alt="image" src="https://github.com/jessicayd/mood-board/assets/105768635/0980e0a2-8457-4589-a246-c32fbf643276">
+
 
