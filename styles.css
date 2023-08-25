@@ -22,8 +22,10 @@ h1 {
     border:solid;
     border-color: #6F4A20;
     width:80%;
-    height:75vh;
+    height: fit-content;
     margin:auto;
+    padding-bottom:15px;
+    margin-bottom:20px;
     font-size:16px;
     border-radius: 10px;
 }
@@ -306,7 +308,7 @@ input::-webkit-slider-runnable-track {
     #board {
         width:100%;
         margin:0;
-        height: auto;
+        margin-bottom:20px;
     }
 
     #calendar {
