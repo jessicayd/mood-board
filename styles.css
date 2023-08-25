@@ -289,7 +289,6 @@ input::-webkit-slider-runnable-track {
 
 .highlighted {
     border: 1px solid #995744;
-
 }
 
 @media only screen and (max-width: 1200px) {
@@ -360,6 +359,10 @@ input::-webkit-slider-runnable-track {
 
     .box {
         border: 0.5px solid #574a3c3a;
+    }
+
+    .highlighted {
+        border: 1px solid #995744;
     }
 
     .firstCol { 
