@@ -13,7 +13,7 @@ h1 {
 }
 
 #mood {
-    background: linear-gradient(to right, #802929, #dbb1b1 70%, #e4d3d3 100%);
+    background: linear-gradient(to right, rgb(107, 158, 185), rgb(218, 170, 195), rgb(235, 200, 195));
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
@@ -276,5 +276,5 @@ input::-webkit-slider-runnable-track {
 }
 
 .highlighted {
-    border: 1px solid rgb(53, 154, 255);
+    border: 1px solid #995744;
 }
