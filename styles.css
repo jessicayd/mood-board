@@ -334,6 +334,7 @@ input::-webkit-slider-runnable-track {
     .month {
         text-align: center;
         margin:1px;
+        margin-bottom:2px;
     }
       
     #days {
@@ -399,5 +400,9 @@ input::-webkit-slider-runnable-track {
         top: 85%;
         right:8px;
         height:fit-content;
+    }
+
+    #board, #boxes {
+        border-width: 1px;
     }
 }
