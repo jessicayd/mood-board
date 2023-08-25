@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="overlay"></div>
-    <h1>a chro<span id="mood">mood</span>ic scale</h1>
+    <h1>my chro<span id="mood">mood</span>ic scale</h1>
     <div id="board">
         <nav>
             <button id="addEntry">add entry</button>
@@ -26,19 +26,20 @@
         <div id="colorSlider">
             <input id="slide" type="range"/><span id="val"></span>
             <div id="slideLabels">
-                <span>sad</span> <span>happy</span> 
+                <span>:'(</span><span>:D</span> 
             </div>
         </div>
 
          <div id="popup">
             <button id="exit">X</button>
+            <button id="reset">reset</button>
             <input type="date" id="datePopup">
             <div id="error">choose a valid date within this past year!</div>
             <form id="colorForm">
                 <label for="colorForm">select a color:</label>
                 <input id="picker" type="range" min=0 max=100 value="0"/><span id="val"></span>
                 <div id="slideLabels">
-                    <span>sad</span> <span>happy</span> 
+                    <span>:'(</span><span>:D</span> 
                 </div>
                 <button id="submit" type="submit">submit</button>
             </form>

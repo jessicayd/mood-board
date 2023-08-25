@@ -113,7 +113,7 @@ nav {
 
 .box{
     border: 0.5px solid #574a3c3a; 
-    background-color:#cbc8c82c;
+    background-color:#cbc8c82e;
 }
 
 .firstCol { border-left: 0; }
@@ -227,7 +227,7 @@ input::-webkit-slider-runnable-track {
     }
 }
 
-#exit, #submit {
+#exit, #submit, #reset {
     font-family: 'McLaren', sans-serif;
     border:none;
     border-radius: 4px;
@@ -249,19 +249,28 @@ input::-webkit-slider-runnable-track {
     cursor:pointer;
 }
 
-#exit {
+#exit, #reset {
     color: #856969;
     background-color: #f2eaea;
     position:absolute;
-    right:8px;
-    top:8px;
     cursor:pointer;
 }
 
-#exit:hover {
+#exit {
+    right:8px;
+    top:8px;
+}
+
+#reset {
+    right:20px;
+    top:35%;
+    font-size:10px;
+}
+
+#exit:hover, #reset:hover {
     background-color: #ebe1e1;
 }
 
-#exit:active {
+#exit:active, #reset:active {
     background-color: #dfd4d4;
 }
