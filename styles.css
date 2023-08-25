@@ -13,7 +13,7 @@ h1 {
 }
 
 #mood {
-    background: linear-gradient(to right, #802929, #dbb1b1 70%, #e4d3d3 100%);
+    background: linear-gradient(to right, #802929, #dbb1b1 70%, #dec5c5 100%);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
