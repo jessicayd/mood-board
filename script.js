@@ -7,6 +7,12 @@ const day = currDate.getDate();
 const popup = document.getElementById('popup');
 const overlay = document.getElementById('overlay');
 
+let colorStorage = {}
+
+if (localStorage.getItem('colorStorage') != null) {
+    colorStorage = JSON.parse(localStorage.getItem('colorStorage'));
+}
+
 function createBoard() {
     document.getElementById("date").innerHTML = `${monthNames[currDate.getMonth()]} ${currDate.getDate()}, ${year}`;
     document.getElementById("datePopup").valueAsDate = new Date(year, month, day);
@@ -52,8 +58,16 @@ function createBoard() {
                 enterPopup();
             })
             boxesContainer.append(box);
+
+            if (colorStorage[box.id]) {
+                document.getElementById(box.id).style.backgroundColor = colorStorage[box.id]
+            }
+
         }
     }
+    const todayBox = document.getElementById(`${month}${day - 1}`);
+    todayBox.classList.add('highlighted');
+
 }
 
 function getRGB(colorValue) {
@@ -121,6 +135,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const date = dateInput.value.split("-");
         const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
         currBox.style.backgroundColor = "#cbc8c82e";
+        colorStorage[`${date[1] - 1}${date[2] - 1}`] = "#cbc8c82e"
+        localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
         exitPopup();
     })
     popup.addEventListener('submit', function(event) {
@@ -145,6 +161,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
         currBox.style.backgroundColor = rgbColor;
 
+        // store color
+        colorStorage[`${date[1] - 1}${date[2] - 1}`] = currBox.style.backgroundColor;
+        localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
         exitPopup();
     });
 
