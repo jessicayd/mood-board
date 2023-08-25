@@ -329,11 +329,11 @@ input::-webkit-slider-runnable-track {
         grid-area: months;
         width:auto;
         grid-template-columns: repeat(12, 1fr);
-        column-gap: 1.5px; 
     }
 
     .month {
         text-align: center;
+        margin:1px;
     }
       
     #days {
@@ -388,7 +388,6 @@ input::-webkit-slider-runnable-track {
         grid-area: months;
         width:auto;
         grid-template-columns: repeat(12, 1fr);
-        column-gap: 1.5px;
     }
 
     .month {
