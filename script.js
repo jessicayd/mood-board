@@ -63,7 +63,7 @@ function createBoard() {
             if (i == 0) box.classList.add("firstRow");
             if (i == 11) box.classList.add("lastRow");
             box.classList.add("box");
-            box.id = `${i}${j}`;
+            box.id = `${i},${j}`;
 
             const boxDate = new Date(year, i, j + 1);
             let isValidDate = (i == boxDate.getMonth());
@@ -88,7 +88,7 @@ function createBoard() {
         }
         boxesContainer.append(boxMonth);
     }
-    const todayBox = document.getElementById(`${month}${day - 1}`);
+    const todayBox = document.getElementById(`${month},${day - 1}`);
     todayBox.classList.add('highlighted');
 
 }
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const date = dateInput.value.split("-");
         const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
         currBox.style.backgroundColor = "#cbc8c82e";
-        colorStorage[`${date[1] - 1}${date[2] - 1}`] = "#cbc8c82e"
+        colorStorage[`${date[1] - 1},${date[2] - 1}`] = "#cbc8c82e"
         localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
         exitPopup();
     })
@@ -181,11 +181,11 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.style.marginBottom = "10px";
         document.getElementById('error').style.display = "none";
         
-        const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
+        const currBox = document.getElementById(`${date[1] - 1},${date[2] - 1}`);
         currBox.style.backgroundColor = rgbColor;
 
         // store color
-        colorStorage[`${date[1] - 1}${date[2] - 1}`] = currBox.style.backgroundColor;
+        colorStorage[`${date[1] - 1},${date[2] - 1}`] = currBox.style.backgroundColor;
         localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
         exitPopup();
     });
