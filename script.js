@@ -38,8 +38,13 @@ function createBoard() {
             box.classList.add("box");
             box.id = `${i}${j}`;
 
+            const boxDate = new Date(year, i, j + 1);
+            let isValidDate = (i == boxDate.getMonth());
+            if (!isValidDate) box.style.backgroundColor = "#cbc8c860";
+
             box.addEventListener('click', function() {
-                document.getElementById("datePopup").valueAsDate = new Date(year, i, j + 1);
+                if (isValidDate) document.getElementById("datePopup").valueAsDate = boxDate;
+                else return;
                 let rgbString = box.style.backgroundColor
                 let rgb = rgbString.substring(4, rgbString.length - 1).split(", ");
                 let colorValue = getColorValue(rgb[0], rgb[1], rgb[2]);
