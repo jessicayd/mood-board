@@ -1,6 +1,6 @@
-monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-smolMonths = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sept", "oct", "nov", "dec"];
-tiniMonths = ["j", "f", "m", "a", "m", "j", "j", "a", "s", "o", "n", "d"];
+const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const smolMonths = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sept", "oct", "nov", "dec"];
+const tiniMonths = ["j", "f", "m", "a", "m", "j", "j", "a", "s", "o", "n", "d"];
 
 const currDate = new Date();
 const year = currDate.getFullYear();
@@ -10,10 +10,19 @@ const day = currDate.getDate();
 const popup = document.getElementById('popup');
 const overlay = document.getElementById('overlay');
 
-let colorStorage = {}
+let totalRed = 0;
+let totalGreen = 0;
+let totalBlue = 0;
+let totalColors = 0;
+
+let colorStorage = {};
+let avgColor = "rgb(238, 238, 238)";
 
 if (localStorage.getItem('colorStorage') != null) {
     colorStorage = JSON.parse(localStorage.getItem('colorStorage'));
+}
+if (localStorage.getItem('avgColor') != null) {
+    avgColor = localStorage.getItem('avgColor');
 }
 
 function createBoard() {
@@ -64,6 +73,7 @@ function createBoard() {
             if (i == 11) box.classList.add("lastRow");
             box.classList.add("box");
             box.id = `${i},${j}`;
+            box.id = `${i},${j}`;
 
             const boxDate = new Date(year, i, j + 1);
             let isValidDate = (i == boxDate.getMonth());
@@ -72,26 +82,44 @@ function createBoard() {
             box.addEventListener('click', function() {
                 if (isValidDate) document.getElementById("datePopup").valueAsDate = boxDate;
                 else return;
-                let rgbString = box.style.backgroundColor
+                let rgbString = box.style.backgroundColor;
                 let rgb = rgbString.substring(4, rgbString.length - 1).split(", ");
                 let colorValue = getColorValue(rgb[0], rgb[1], rgb[2]);
-                if (colorValue != NaN) document.getElementById("picker").value = colorValue;
+                if (!isNaN(colorValue)) document.getElementById("picker").value = colorValue;
                 enterPopup();
-            })
+            });
 
             boxMonth.append(box);
-            if (colorStorage[box.id]) {
-                console.log(box.id);
-                box.style.backgroundColor = colorStorage[box.id]
+
+            if (colorStorage[box.id] && colorStorage[box.id] != "rgb(238, 238, 238)") {
+                box.style.backgroundColor = colorStorage[box.id];
+                let split = colorStorage[box.id].substring(4, colorStorage[box.id].length - 1).split(", ");
+                console.log("red:", split[0])
+                totalRed += Math.pow(split[0], 2);
+                totalGreen += Math.pow(split[1], 2);
+                totalBlue += Math.pow(split[2], 2);
+                totalColors += 1;
             }
 
         }
         boxesContainer.append(boxMonth);
     }
+    let avgRed = Math.floor(Math.sqrt(totalRed / totalColors));
+    let avgGreen = Math.floor(Math.sqrt(totalGreen / totalColors));
+    let avgBlue = Math.floor(Math.sqrt(totalBlue / totalColors));
+
+    if (totalColors === 0) {
+        document.getElementById("average").style.backgroundColor = "rgb(238, 238, 238)";
+        localStorage.setItem('avgColor', "rgb(238, 238, 238)");
+    } else {
+        document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
+        localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
+    }
+
     const todayBox = document.getElementById(`${month},${day - 1}`);
     todayBox.classList.add('highlighted');
-
 }
+
 
 function getRGB(colorValue) {
     let red;
@@ -146,6 +174,8 @@ function enterPopup() {
 }
 
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
     createBoard();
 
@@ -157,9 +187,38 @@ document.addEventListener('DOMContentLoaded', function() {
         const dateInput = document.getElementById('datePopup');
         const date = dateInput.value.split("-");
         const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
-        currBox.style.backgroundColor = "#cbc8c82e";
-        colorStorage[`${date[1] - 1},${date[2] - 1}`] = "#cbc8c82e"
+
+        const storedColor = colorStorage[`${date[1] - 1}${date[2] - 1}`].toLowerCase();
+        const defaultColor = "rgb(238, 238, 238)";
+
+        if (storedColor !== defaultColor) {
+            const oldColor = colorStorage[`${date[1] - 1}${date[2] - 1}`]
+            console.log("Old Color:", oldColor)
+
+            let split = oldColor.substring(4, oldColor.length - 1).split(", ");
+
+            totalRed -= Math.pow(split[0], 2);
+            totalGreen -=  Math.pow(split[1], 2);
+            totalBlue -=  Math.pow(split[2], 2);
+            totalColors -= 1
+
+            if (totalColors == 0) {
+                document.getElementById("average").style.backgroundColor = "rgb(238, 238, 238)";
+                localStorage.setItem('avgColor', "rgb(238, 238, 238)");
+            } else {
+                avgRed = Math.sqrt(totalRed/totalColors)
+                avgGreen = Math.sqrt(totalGreen/totalColors)
+                avgBlue = Math.sqrt(totalBlue/totalColors)
+
+                document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
+                localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
+            }
+        }
+        currBox.style.backgroundColor = "rgb(238, 238, 238)";
+        
+        colorStorage[`${date[1] - 1},${date[2] - 1}`] = "rgb(238, 238, 238)";
         localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
+
         exitPopup();
     })
     popup.addEventListener('submit', function(event) {
@@ -182,7 +241,21 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('error').style.display = "none";
         
         const currBox = document.getElementById(`${date[1] - 1},${date[2] - 1}`);
+        const currBox = document.getElementById(`${date[1] - 1},${date[2] - 1}`);
         currBox.style.backgroundColor = rgbColor;
+
+        let split = rgbColor.substring(4, rgbColor.length - 1).split(", ");
+            
+        totalRed += Math.pow(split[0], 2);
+        totalGreen +=  Math.pow(split[1], 2);
+        totalBlue +=  Math.pow(split[2], 2);
+        totalColors += 1
+
+        avgRed = Math.sqrt(totalRed/totalColors)
+        avgGreen = Math.sqrt(totalGreen/totalColors)
+        avgBlue = Math.sqrt(totalBlue/totalColors)
+        document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
+        localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
 
         // store color
         colorStorage[`${date[1] - 1},${date[2] - 1}`] = currBox.style.backgroundColor;
