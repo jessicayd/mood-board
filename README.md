@@ -1,7 +1,7 @@
 # My Chromoodic Scale
 Visualize the state of your mental health throughout the course of a year.
 
-live at [github pages](https://theheisenbugs.github.io/mood-board/)
+Live at [Github Pages](https://theheisenbugs.github.io/mood-board/)
 
 ## Usage
 1. Users can choose a mood color either by clicking the "Add Entry" button and selecting a date (defaulting to the current date) or directly by clicking on a specific box.
