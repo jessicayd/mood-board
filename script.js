@@ -72,7 +72,7 @@ function createBoard() {
             if (i == 0) box.classList.add("firstRow");
             if (i == 11) box.classList.add("lastRow");
             box.classList.add("box");
-            box.id = `${i}${j}`;
+            box.id = `${i},${j}`;
 
             const boxDate = new Date(year, i, j + 1);
             let isValidDate = (i == boxDate.getMonth());
@@ -103,7 +103,6 @@ function createBoard() {
         }
         boxesContainer.append(boxMonth);
     }
-
     let avgRed = Math.floor(Math.sqrt(totalRed / totalColors));
     let avgGreen = Math.floor(Math.sqrt(totalGreen / totalColors));
     let avgBlue = Math.floor(Math.sqrt(totalBlue / totalColors));
@@ -116,7 +115,7 @@ function createBoard() {
         localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
     }
 
-    const todayBox = document.getElementById(`${month}${day - 1}`);
+    const todayBox = document.getElementById(`${month},${day - 1}`);
     todayBox.classList.add('highlighted');
 }
 
@@ -187,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const dateInput = document.getElementById('datePopup');
         const date = dateInput.value.split("-");
         const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
-        
+
         const storedColor = colorStorage[`${date[1] - 1}${date[2] - 1}`].toLowerCase();
         const defaultColor = "rgb(238, 238, 238)";
 
@@ -216,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         currBox.style.backgroundColor = "rgb(238, 238, 238)";
         
-        colorStorage[`${date[1] - 1}${date[2] - 1}`] = "rgb(238, 238, 238)";
+        colorStorage[`${date[1] - 1},${date[2] - 1}`] = "rgb(238, 238, 238)";
         localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
 
         exitPopup();
@@ -240,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.style.marginBottom = "10px";
         document.getElementById('error').style.display = "none";
         
-        const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
+        const currBox = document.getElementById(`${date[1] - 1},${date[2] - 1}`);
         currBox.style.backgroundColor = rgbColor;
 
         let split = rgbColor.substring(4, rgbColor.length - 1).split(", ");
@@ -257,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
 
         // store color
-        colorStorage[`${date[1] - 1}${date[2] - 1}`] = currBox.style.backgroundColor;
+        colorStorage[`${date[1] - 1},${date[2] - 1}`] = currBox.style.backgroundColor;
         localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
         exitPopup();
     });
