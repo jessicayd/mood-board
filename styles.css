@@ -125,13 +125,12 @@ nav {
 
 #colorSlider {
     width: 60%;
-    margin:auto;
 }
 
 input[type=range] {
     -webkit-appearance: none;
     width: 100%;
-    margin: 0;
+    margin: 10px auto;
   }
 
 input::-webkit-slider-runnable-track {
@@ -152,6 +151,27 @@ input::-webkit-slider-runnable-track {
     display: flex;
     margin: -3px 3px;
     justify-content: space-between;
+    font-size: 12px;
+    font-family: 'McLaren', sans-serif;
+}
+
+#color-container {
+    display: flex;
+    align-items: center;
+}
+
+#average {
+    width: 22px; 
+    height: 22px;
+    border: 1px solid #000; /* Add border for visualization */
+    margin-top: 5px;
+    margin-right: 20px;
+    margin-left: 25vh;
+    border-radius: 5px;
+}
+
+#avgLabels {
+    margin-left: 22vh;
     font-size: 12px;
     font-family: 'McLaren', sans-serif;
 }
@@ -278,3 +298,4 @@ input::-webkit-slider-runnable-track {
 .highlighted {
     border: 1px solid #995744;
 }
+

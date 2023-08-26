@@ -7,10 +7,19 @@ const day = currDate.getDate();
 const popup = document.getElementById('popup');
 const overlay = document.getElementById('overlay');
 
+let totalRed = 0;
+let totalGreen = 0;
+let totalBlue = 0;
+let totalColors = 0;
+
 let colorStorage = {}
+let avgColor = "#cbc8c82e"
 
 if (localStorage.getItem('colorStorage') != null) {
     colorStorage = JSON.parse(localStorage.getItem('colorStorage'));
+}
+if (localStorage.getItem('avgColor') != null) {
+    avgColor = localStorage.getItem('avgColor');
 }
 
 function createBoard() {
@@ -59,8 +68,24 @@ function createBoard() {
             })
             boxesContainer.append(box);
 
-            if (colorStorage[box.id]) {
+            if (colorStorage[box.id] && colorStorage[box.id] != "#cbc8c82e") {
                 document.getElementById(box.id).style.backgroundColor = colorStorage[box.id]
+                let split = colorStorage[box.id].substring(4, colorStorage[box.id].length - 1).split(", ");
+                totalRed += Math.pow(split[0], 2);
+                totalGreen +=  Math.pow(split[1], 2);
+                totalBlue +=  Math.pow(split[2], 2);
+                totalColors += 1;
+            }
+
+            let avgRed = Math.sqrt(totalRed/totalColors);
+            let avgGreen = Math.sqrt(totalGreen/totalColors);
+            let avgBlue = Math.sqrt(totalBlue/totalColors);
+            if (totalColors === 0) {
+                document.getElementById("average").style.backgroundColor = "#cbc8c82e";
+                localStorage.setItem('avgColor', "#cbc8c82e");
+            } else {
+                document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
+                localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
             }
 
         }
@@ -123,6 +148,8 @@ function enterPopup() {
 }
 
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
     createBoard();
 
@@ -134,9 +161,33 @@ document.addEventListener('DOMContentLoaded', function() {
         const dateInput = document.getElementById('datePopup');
         const date = dateInput.value.split("-");
         const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
+
+        if (currBox.style.backgroundColor != "#cbc8c82e") {
+            const oldColor = colorStorage[`${date[1] - 1}${date[2] - 1}`]
+            let split = oldColor.substring(4, oldColor.length - 1).split(", ");
+
+            totalRed -= Math.pow(split[0], 2);
+            totalGreen -=  Math.pow(split[1], 2);
+            totalBlue -=  Math.pow(split[2], 2);
+            totalColors -= 1
+
+            if (totalColors == 0) {
+                document.getElementById("average").style.backgroundColor = "#cbc8c82e";
+                localStorage.setItem('avgColor', "#cbc8c82e");
+            } else {
+                avgRed = Math.sqrt(totalRed/totalColors)
+                avgGreen = Math.sqrt(totalGreen/totalColors)
+                avgBlue = Math.sqrt(totalBlue/totalColors)
+
+                document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
+                localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
+            }
+       }
         currBox.style.backgroundColor = "#cbc8c82e";
-        colorStorage[`${date[1] - 1}${date[2] - 1}`] = "#cbc8c82e"
+        
+        colorStorage[`${date[1] - 1}${date[2] - 1}`] = "#cbc8c82e";
         localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
+
         exitPopup();
     })
     popup.addEventListener('submit', function(event) {
@@ -160,6 +211,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
         currBox.style.backgroundColor = rgbColor;
+
+        let split = rgbColor.substring(4, rgbColor.length - 1).split(", ");
+            
+        totalRed += Math.pow(split[0], 2);
+        totalGreen +=  Math.pow(split[1], 2);
+        totalBlue +=  Math.pow(split[2], 2);
+        totalColors += 1
+
+        avgRed = Math.sqrt(totalRed/totalColors)
+        avgGreen = Math.sqrt(totalGreen/totalColors)
+        avgBlue = Math.sqrt(totalBlue/totalColors)
+        document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
+        localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
 
         // store color
         colorStorage[`${date[1] - 1}${date[2] - 1}`] = currBox.style.backgroundColor;
