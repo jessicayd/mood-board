@@ -465,6 +465,7 @@ input::-webkit-slider-runnable-track {
     #note {
         top: 85%;
         left: 8px;
+        height:fit-content;
     }
 
     #board, #boxes {
