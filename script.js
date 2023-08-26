@@ -1,6 +1,6 @@
-monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-smolMonths = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sept", "oct", "nov", "dec"];
-tiniMonths = ["j", "f", "m", "a", "m", "j", "j", "a", "s", "o", "n", "d"];
+const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const smolMonths = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sept", "oct", "nov", "dec"];
+const tiniMonths = ["j", "f", "m", "a", "m", "j", "j", "a", "s", "o", "n", "d"];
 
 const currDate = new Date();
 const year = currDate.getFullYear();
@@ -15,8 +15,8 @@ let totalGreen = 0;
 let totalBlue = 0;
 let totalColors = 0;
 
-let colorStorage = {}
-let avgColor = "#cbc8c82e"
+let colorStorage = {};
+let avgColor = "#cbc8c82e";
 
 if (localStorage.getItem('colorStorage') != null) {
     colorStorage = JSON.parse(localStorage.getItem('colorStorage'));
@@ -81,46 +81,45 @@ function createBoard() {
             box.addEventListener('click', function() {
                 if (isValidDate) document.getElementById("datePopup").valueAsDate = boxDate;
                 else return;
-                let rgbString = box.style.backgroundColor
+                let rgbString = box.style.backgroundColor;
                 let rgb = rgbString.substring(4, rgbString.length - 1).split(", ");
                 let colorValue = getColorValue(rgb[0], rgb[1], rgb[2]);
-                if (colorValue != NaN) document.getElementById("picker").value = colorValue;
+                if (!isNaN(colorValue)) document.getElementById("picker").value = colorValue;
                 enterPopup();
-            })
+            });
+
+            boxMonth.append(box);
+            if (colorStorage[box.id]) {
+                console.log(box.id);
+                box.style.backgroundColor = colorStorage[box.id];
+            }
 
             if (colorStorage[box.id] && colorStorage[box.id] != "#cbc8c82e") {
-                document.getElementById(box.id).style.backgroundColor = colorStorage[box.id]
+                document.getElementById(box.id).style.backgroundColor = colorStorage[box.id];
                 let split = colorStorage[box.id].substring(4, colorStorage[box.id].length - 1).split(", ");
                 totalRed += Math.pow(split[0], 2);
-                totalGreen +=  Math.pow(split[1], 2);
-                totalBlue +=  Math.pow(split[2], 2);
+                totalGreen += Math.pow(split[1], 2);
+                totalBlue += Math.pow(split[2], 2);
                 totalColors += 1;
             }
 
-            let avgRed = Math.sqrt(totalRed/totalColors);
-            let avgGreen = Math.sqrt(totalGreen/totalColors);
-            let avgBlue = Math.sqrt(totalBlue/totalColors);
+            let avgRed = Math.sqrt(totalRed / totalColors);
+            let avgGreen = Math.sqrt(totalGreen / totalColors);
+            let avgBlue = Math.sqrt(totalBlue / totalColors);
             if (totalColors === 0) {
                 document.getElementById("average").style.backgroundColor = "#cbc8c82e";
                 localStorage.setItem('avgColor', "#cbc8c82e");
             } else {
                 document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
                 localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
-
-//             boxMonth.append(box);
-//             if (colorStorage[box.id]) {
-//                 console.log(box.id);
-//                 box.style.backgroundColor = colorStorage[box.id]
-
             }
-
         }
         boxesContainer.append(boxMonth);
     }
     const todayBox = document.getElementById(`${month}${day - 1}`);
     todayBox.classList.add('highlighted');
-
 }
+
 
 function getRGB(colorValue) {
     let red;
