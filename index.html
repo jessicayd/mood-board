@@ -27,17 +27,10 @@
             <div id="boxes"></div>
         </div>
 
-        <div id="color-container">
-            <div id="average-container">
-                <div id="average"></div>
-                <div id="avgLabels">avg</div>
-                <div id="averageLabels">average</div>
-            </div>
-            <div id="colorSlider">
-                <input id="slide" type="range"/><span id="val"></span>
-                <div id="slideLabels">
-                    <span>:'(</span><span>:D</span> 
-                </div>
+        <div id="colorSlider">
+            <input disabled="true" id="slide" type="range" min=0 max=100 value="0"/>
+            <div id="slideLabels">
+                <span>:'(</span><span>:D</span> 
             </div>
          </div>
 
@@ -50,7 +43,7 @@
             <div id="error">choose a valid date within this past year!</div>
             <form id="colorForm">
                 <label for="colorForm">select a color:</label>
-                <input id="picker" type="range" min=0 max=100 value="0"/><span id="val"></span>
+                <input id="picker" type="range" min=0 max=100 value="0"/>
                 <div id="slideLabels">
                     <span>:'(</span><span>:D</span> 
                 </div>

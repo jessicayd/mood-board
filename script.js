@@ -14,7 +14,7 @@ let totalColorValue = 0;
 let totalColors = 0;
 
 let colorStorage = {};
-let avgColor = "rgb(238, 238, 238)";
+let avgColor = 0;
 
 if (localStorage.getItem('colorStorage') != null) {
     colorStorage = JSON.parse(localStorage.getItem('colorStorage'));
@@ -115,14 +115,13 @@ function createBoard() {
 
 function updateAverage() {
     if (totalColors === 0) {
-        document.getElementById("average").style.backgroundColor = "rgb(238, 238, 238)";
-        localStorage.setItem('avgColor', "rgb(238, 238, 238)");
+        document.getElementById("slide").value = 50;
+        localStorage.setItem('avgColor', 0);
     } else {
         let averageColorValue = totalColorValue / totalColors;
-        let averageRGB = getRGB(averageColorValue);
 
-        document.getElementById("average").style.backgroundColor = `${averageRGB}`;
-        localStorage.setItem('avgColor', `${averageRGB}`);
+        document.getElementById("slide").value = averageColorValue;
+        localStorage.setItem('avgColor', averageColorValue);
     }
 }
 
