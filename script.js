@@ -10,9 +10,7 @@ const day = currDate.getDate();
 const popup = document.getElementById('popup');
 const overlay = document.getElementById('overlay');
 
-let totalRed = 0;
-let totalGreen = 0;
-let totalBlue = 0;
+let totalColorValue = 0;
 let totalColors = 0;
 
 let colorStorage = {};
@@ -23,6 +21,11 @@ if (localStorage.getItem('colorStorage') != null) {
 }
 if (localStorage.getItem('avgColor') != null) {
     avgColor = localStorage.getItem('avgColor');
+}
+
+let noteStorage = {};
+if (localStorage.getItem('noteStorage') != null) {
+    noteStorage = JSON.parse(localStorage.getItem('noteStorage'));
 }
 
 function createBoard() {
@@ -82,44 +85,46 @@ function createBoard() {
             box.addEventListener('click', function() {
                 if (isValidDate) document.getElementById("datePopup").valueAsDate = boxDate;
                 else return;
-                let rgbString = box.style.backgroundColor;
-                let rgb = rgbString.substring(4, rgbString.length - 1).split(", ");
-                let colorValue = getColorValue(rgb[0], rgb[1], rgb[2]);
-                if (!isNaN(colorValue)) document.getElementById("picker").value = colorValue;
+                if (colorStorage[box.id]) {
+                    let rgb = colorStorage[box.id].substring(4, colorStorage[box.id].length - 1).split(", ");
+                    let colorValue = getColorValue(rgb[0], rgb[1], rgb[2]);
+                    document.getElementById("picker").value = colorValue;
+                }
+                else document.getElementById("picker").value = 50;
                 enterPopup();
             });
 
             boxMonth.append(box);
 
-            if (colorStorage[box.id] && colorStorage[box.id] != "rgb(238, 238, 238)") {
+            if (colorStorage[box.id]) {
                 box.style.backgroundColor = colorStorage[box.id];
                 let split = colorStorage[box.id].substring(4, colorStorage[box.id].length - 1).split(", ");
-                console.log("red:", split[0])
-                totalRed += Math.pow(split[0], 2);
-                totalGreen += Math.pow(split[1], 2);
-                totalBlue += Math.pow(split[2], 2);
+                totalColorValue += getColorValue(split[0], split[1], split[2])
                 totalColors += 1;
             }
 
         }
         boxesContainer.append(boxMonth);
     }
-    let avgRed = Math.floor(Math.sqrt(totalRed / totalColors));
-    let avgGreen = Math.floor(Math.sqrt(totalGreen / totalColors));
-    let avgBlue = Math.floor(Math.sqrt(totalBlue / totalColors));
 
-    if (totalColors === 0) {
-        document.getElementById("average").style.backgroundColor = "rgb(238, 238, 238)";
-        localStorage.setItem('avgColor', "rgb(238, 238, 238)");
-    } else {
-        document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
-        localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
-    }
+    updateAverage();
 
     const todayBox = document.getElementById(`${month},${day - 1}`);
     todayBox.classList.add('highlighted');
 }
 
+function updateAverage() {
+    if (totalColors === 0) {
+        document.getElementById("average").style.backgroundColor = "rgb(238, 238, 238)";
+        localStorage.setItem('avgColor', "rgb(238, 238, 238)");
+    } else {
+        let averageColorValue = totalColorValue / totalColors;
+        let averageRGB = getRGB(averageColorValue);
+
+        document.getElementById("average").style.backgroundColor = `${averageRGB}`;
+        localStorage.setItem('avgColor', `${averageRGB}`);
+    }
+}
 
 function getRGB(colorValue) {
     let red;
@@ -171,9 +176,15 @@ function enterPopup() {
     overlay.style.display = "block";
     popup.style.animation = "fadein 0.15s linear forwards";
     overlay.style.animation = "fadein 0.15s linear forwards";
+
+    const dateInput = document.getElementById('datePopup');
+    const date = dateInput.value.split("-");
+    const storedNote = noteStorage[`${date[1] - 1},${date[2] - 1}`];
+    if (storedNote) {
+        document.getElementById('note').value = storedNote;
+    }
+    else document.getElementById('note').value = "";
 }
-
-
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -188,36 +199,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const date = dateInput.value.split("-");
         const currBox = document.getElementById(`${date[1] - 1},${date[2] - 1}`);
 
-        const storedColor = colorStorage[`${date[1] - 1},${date[2] - 1}`].toLowerCase();
-        const defaultColor = "rgb(238, 238, 238)";
+        const storedColor = colorStorage[`${date[1] - 1},${date[2] - 1}`];
 
-        if (storedColor !== defaultColor) {
-            const oldColor = colorStorage[`${date[1] - 1},${date[2] - 1}`]
-            console.log("Old Color:", oldColor)
+        if (storedColor) {
+            let split = storedColor.substring(4, storedColor.length - 1).split(", ");
 
-            let split = oldColor.substring(4, oldColor.length - 1).split(", ");
-
-            totalRed -= Math.pow(split[0], 2);
-            totalGreen -=  Math.pow(split[1], 2);
-            totalBlue -=  Math.pow(split[2], 2);
+            totalColorValue -= getColorValue(split[0], split[1], split[2]);
             totalColors -= 1
 
-            if (totalColors == 0) {
-                document.getElementById("average").style.backgroundColor = "rgb(238, 238, 238)";
-                localStorage.setItem('avgColor', "rgb(238, 238, 238)");
-            } else {
-                avgRed = Math.sqrt(totalRed/totalColors)
-                avgGreen = Math.sqrt(totalGreen/totalColors)
-                avgBlue = Math.sqrt(totalBlue/totalColors)
-
-                document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
-                localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
-            }
+            updateAverage();
         }
         currBox.style.backgroundColor = "rgb(238, 238, 238)";
         
-        colorStorage[`${date[1] - 1},${date[2] - 1}`] = "rgb(238, 238, 238)";
+        delete colorStorage[`${date[1] - 1},${date[2] - 1}`];
+        delete noteStorage[`${date[1] - 1},${date[2] - 1}`];
         localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
+        localStorage.setItem('noteStorage', JSON.stringify(noteStorage));
 
         exitPopup();
     })
@@ -243,22 +240,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const currBox = document.getElementById(`${date[1] - 1},${date[2] - 1}`);
         currBox.style.backgroundColor = rgbColor;
 
-        let split = rgbColor.substring(4, rgbColor.length - 1).split(", ");
-            
-        totalRed += Math.pow(split[0], 2);
-        totalGreen +=  Math.pow(split[1], 2);
-        totalBlue +=  Math.pow(split[2], 2);
-        totalColors += 1
+        const storedColor = colorStorage[`${date[1] - 1},${date[2] - 1}`];
+        if (storedColor) {
+            let split = storedColor.substring(4, storedColor.length - 1).split(", ");
 
-        avgRed = Math.sqrt(totalRed/totalColors)
-        avgGreen = Math.sqrt(totalGreen/totalColors)
-        avgBlue = Math.sqrt(totalBlue/totalColors)
-        document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
-        localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
+            totalColorValue -= getColorValue(split[0], split[1], split[2]);
+            totalColors -= 1
+        }
+
+        let split = rgbColor.substring(4, rgbColor.length - 1).split(", ");
+
+        totalColorValue += getColorValue(split[0], split[1], split[2]);
+        totalColors += 1
+        updateAverage();
 
         // store color
         colorStorage[`${date[1] - 1},${date[2] - 1}`] = currBox.style.backgroundColor;
+        noteStorage[`${date[1] - 1},${date[2] - 1}`] = document.getElementById('note').value;
         localStorage.setItem('colorStorage', JSON.stringify(colorStorage));
+        localStorage.setItem('noteStorage', JSON.stringify(noteStorage));
         exitPopup();
     });
 

@@ -69,6 +69,7 @@ nav {
 #calendar {
     height: 65%;
     margin: 30px;
+    margin-bottom:20px;
     display: grid;
     grid-template-rows: auto 1fr; 
     grid-template-columns: 13% 87%;
@@ -134,10 +135,6 @@ nav {
 
 /* color slider */
 
-#colorSlider {
-    width: 60%;
-}
-
 input[type=range] {
     -webkit-appearance: none;
     width: 100%;
@@ -163,28 +160,32 @@ input::-webkit-slider-runnable-track {
     margin: -3px 3px;
     justify-content: space-between;
     font-size: 12px;
-    font-family: 'McLaren', sans-serif;
 }
 
 #color-container {
-    display: flex;
-    align-items: center;
+    width:50%;
+    margin:auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap:2%;
+    margin-bottom: 10px;
 }
 
 #average {
+    margin: 10px auto;
     width: 22px; 
     height: 22px;
-    border: 1px solid #000; /* Add border for visualization */
-    margin-top: 5px;
-    margin-right: 20px;
-    margin-left: 25vh;
-    border-radius: 5px;
+    border-radius: 7px;
+    border: 1px solid #7E5E5E;
+}
+
+#avgLabels, #averageLabels {
+    font-size: 12px;
+    margin: -5px 3px;
 }
 
 #avgLabels {
-    margin-left: 22vh;
-    font-size: 12px;
-    font-family: 'McLaren', sans-serif;
+    display:none;
 }
 
 /* adding an entry */
@@ -258,7 +259,7 @@ input::-webkit-slider-runnable-track {
     }
 }
 
-#exit, #submit, #reset {
+#exit, #submit, #reset, #note {
     font-family: 'McLaren', sans-serif;
     border:none;
     border-radius: 4px;
@@ -280,7 +281,7 @@ input::-webkit-slider-runnable-track {
     cursor:pointer;
 }
 
-#exit, #reset {
+#exit, #reset, #note {
     color: #856969;
     background-color: #f2eaea;
     position:absolute;
@@ -297,12 +298,39 @@ input::-webkit-slider-runnable-track {
     top:35%;
     font-size:10px;
 }
+/* 
+#note {
+    font-size:10px;
+    top:35%;
+    resize:none;
+    height:13px;
+    left:20px;
+    white-space: nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+    width:20%;
+    text-align: left;
+    padding-left: 5px;
+} */
 
-#exit:hover, #reset:hover {
+#note {
+    width:20%;
+    text-align: left;
+    padding-left: 5px;
+    left:20px;
+    font-size:10px;
+    top: 35%;
+}
+
+::placeholder {
+    color: #8569699d;
+}
+
+#exit:hover, #reset:hover, #note:hover {
     background-color: #ebe1e1;
 }
 
-#exit:active, #reset:active {
+#exit:active, #reset:active, #note:active {
     background-color: #dfd4d4;
 }
 
@@ -401,9 +429,17 @@ input::-webkit-slider-runnable-track {
         margin:15px;
         grid-template-columns: 8% 92%;
     }
+
+    #color-container {
+        width:80%;
+    }
 }
 
 @media only screen and (max-width: 650px) {
+    #popup {
+        width:70%;
+    }
+
     #smolMonths, #tiniMonths {
         display:none;
     }
@@ -426,7 +462,30 @@ input::-webkit-slider-runnable-track {
         height:fit-content;
     }
 
+    #note {
+        top: 85%;
+        left: 8px;
+    }
+
     #board, #boxes {
         border-width: 1px;
+    }
+
+    #avgLabels {
+        display:block;
+    }
+    #averageLabels {
+        display:none;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    h1 {font-size: 20px;}
+    #addEntry, #date {margin: 13px;}
+    #addEntry, #board {
+        font-size:12px;
+    }
+    .day, .month, #avgLabels, #averageLabels {
+        font-size:10px;
     }
 }
