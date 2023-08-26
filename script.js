@@ -241,7 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('error').style.display = "none";
         
         const currBox = document.getElementById(`${date[1] - 1},${date[2] - 1}`);
-        const currBox = document.getElementById(`${date[1] - 1},${date[2] - 1}`);
         currBox.style.backgroundColor = rgbColor;
 
         let split = rgbColor.substring(4, rgbColor.length - 1).split(", ");
