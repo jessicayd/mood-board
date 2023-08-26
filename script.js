@@ -186,13 +186,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('reset').addEventListener('click', function() {
         const dateInput = document.getElementById('datePopup');
         const date = dateInput.value.split("-");
-        const currBox = document.getElementById(`${date[1] - 1}${date[2] - 1}`);
+        const currBox = document.getElementById(`${date[1] - 1},${date[2] - 1}`);
 
-        const storedColor = colorStorage[`${date[1] - 1}${date[2] - 1}`].toLowerCase();
+        const storedColor = colorStorage[`${date[1] - 1},${date[2] - 1}`].toLowerCase();
         const defaultColor = "rgb(238, 238, 238)";
 
         if (storedColor !== defaultColor) {
-            const oldColor = colorStorage[`${date[1] - 1}${date[2] - 1}`]
+            const oldColor = colorStorage[`${date[1] - 1},${date[2] - 1}`]
             console.log("Old Color:", oldColor)
 
             let split = oldColor.substring(4, oldColor.length - 1).split(", ");
