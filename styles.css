@@ -128,6 +128,10 @@ nav {
     background-color:rgb(238, 238, 238);
 }
 
+.highlighted {
+    border: 1px solid #995744;
+}
+
 .firstCol { border-left: 0; }
 .lastCol { border-right: 0; }
 .firstRow { border-top: 0; }
@@ -334,9 +338,13 @@ input::-webkit-slider-runnable-track {
     background-color: #dfd4d4;
 }
 
-.highlighted {
-    border: 1px solid #995744;
-}
+
+
+
+
+
+
+
 
 @media only screen and (max-width: 1200px) {
     #board {
