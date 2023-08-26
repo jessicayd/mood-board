@@ -22,8 +22,10 @@ h1 {
     border:solid;
     border-color: #6F4A20;
     width:80%;
-    height:75vh;
+    height: fit-content;
     margin:auto;
+    padding-bottom:15px;
+    margin-bottom:20px;
     font-size:16px;
     border-radius: 10px;
 }
@@ -69,7 +71,7 @@ nav {
     margin: 30px;
     display: grid;
     grid-template-rows: auto 1fr; 
-    grid-template-columns: 12% 88%;
+    grid-template-columns: 13% 87%;
 }
 
 #days {
@@ -83,15 +85,24 @@ nav {
     border:solid #574a3c9c;
     border-radius:5px;
     display: grid;
-    grid-template-columns: repeat(31, 1fr);
     grid-template-rows: repeat(12, 1fr);
 }
 
-#months {
+.boxMonth {
+    display:grid;
+    grid-template-columns: repeat(31, 1fr);
+}
+
+#fullMonths {
+    width:auto;
     display: grid;
     grid-template-rows: repeat(12, 1fr);
     row-gap: 1.5px;
     margin:2px;
+}
+
+#smolMonths, #tiniMonths {
+    display:none;
 }
 
 .day {
@@ -221,7 +232,7 @@ input::-webkit-slider-runnable-track {
 
 #overlay {
     display:none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -299,3 +310,123 @@ input::-webkit-slider-runnable-track {
     border: 1px solid #995744;
 }
 
+@media only screen and (max-width: 1200px) {
+    #board {
+        width:950px;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    #board {
+        width:100%
+    }
+}
+
+@media only screen and (max-width: 830px) {
+    #board {
+        width:100%;
+        margin:0;
+        margin-bottom:20px;
+    }
+
+    #calendar {
+        grid-template-columns: 5% 95%;
+        grid-template-areas:
+          "placeholder months"
+          "days boxes";
+    }
+      
+    #placeholder {
+        grid-area: placeholder;
+    }
+      
+    #fullMonths, #tiniMonths {
+        display:none;
+    }
+
+    #smolMonths {
+        display:grid;
+        grid-area: months;
+        width:auto;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .month {
+        text-align: center;
+        margin:1px;
+        margin-bottom:2px;
+    }
+      
+    #days {
+        grid-area: days;
+        grid-template-columns: none;
+        column-gap: none;
+        grid-template-rows: repeat(31, 1fr);
+        row-gap: 1.5px;
+    }
+      
+    #boxes {
+        grid-area: boxes;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: none;
+    }
+    
+    .boxMonth {
+        grid-template-rows: repeat(31, 1fr);
+        grid-template-columns: none;
+    }
+
+    .box {
+        border: 0.5px solid #574a3c3a;
+    }
+
+    .highlighted {
+        border: 1px solid #995744;
+    }
+
+    .firstCol { 
+        border-top:0;
+    }
+    .lastCol { 
+        border-bottom:0;
+    }
+    .firstRow { 
+        border-left:0;
+    }
+    .lastRow { 
+        border-right:0;
+    }
+
+    #calendar {
+        margin:15px;
+        grid-template-columns: 8% 92%;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    #smolMonths, #tiniMonths {
+        display:none;
+    }
+
+    #tiniMonths {
+        display:grid;
+        grid-area: months;
+        width:auto;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .month {
+        padding: 3px 0;
+        border-radius:4px;
+    }
+
+    #reset {
+        top: 85%;
+        right:8px;
+        height:fit-content;
+    }
+
+    #board, #boxes {
+        border-width: 1px;
+    }
+}

@@ -1,4 +1,7 @@
-const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+smolMonths = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sept", "oct", "nov", "dec"];
+tiniMonths = ["j", "f", "m", "a", "m", "j", "j", "a", "s", "o", "n", "d"];
+
 const currDate = new Date();
 const year = currDate.getFullYear();
 const month = currDate.getMonth();
@@ -34,7 +37,7 @@ function createBoard() {
         daysContainer.append(day);
     }
 
-    const monthsContainer = document.getElementById("months");
+    const monthsContainer = document.getElementById("fullMonths");
     for (let i = 0; i < 12; i++) {
         let month = document.createElement('div');
         month.className = "month";
@@ -42,8 +45,26 @@ function createBoard() {
         monthsContainer.append(month);
     }
 
+    const smolMonthsContainer = document.getElementById("smolMonths");
+    for (let i = 0; i < 12; i++) {
+        let month = document.createElement('div');
+        month.className = "month";
+        month.innerHTML = smolMonths[i];
+        smolMonthsContainer.append(month);
+    }
+
+    const tiniMonthsContainer = document.getElementById("tiniMonths");
+    for (let i = 0; i < 12; i++) {
+        let month = document.createElement('div');
+        month.className = "month";
+        month.innerHTML = tiniMonths[i];
+        tiniMonthsContainer.append(month);
+    }
+
     const boxesContainer = document.getElementById("boxes");
     for (let i = 0; i < 12; i++) {
+        let boxMonth = document.createElement('div');
+        boxMonth.className = "boxMonth";
         for (let j = 0; j < 31; j++) {
             let box = document.createElement('div');
             if (j == 0) box.classList.add("firstCol");
@@ -66,7 +87,6 @@ function createBoard() {
                 if (colorValue != NaN) document.getElementById("picker").value = colorValue;
                 enterPopup();
             })
-            boxesContainer.append(box);
 
             if (colorStorage[box.id] && colorStorage[box.id] != "#cbc8c82e") {
                 document.getElementById(box.id).style.backgroundColor = colorStorage[box.id]
@@ -86,9 +106,16 @@ function createBoard() {
             } else {
                 document.getElementById("average").style.backgroundColor = `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`;
                 localStorage.setItem('avgColor', `rgb(${avgRed}, ${avgGreen}, ${avgBlue})`);
+
+//             boxMonth.append(box);
+//             if (colorStorage[box.id]) {
+//                 console.log(box.id);
+//                 box.style.backgroundColor = colorStorage[box.id]
+
             }
 
         }
+        boxesContainer.append(boxMonth);
     }
     const todayBox = document.getElementById(`${month}${day - 1}`);
     todayBox.classList.add('highlighted');
