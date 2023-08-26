@@ -85,12 +85,6 @@ function createBoard() {
             box.addEventListener('click', function() {
                 if (isValidDate) document.getElementById("datePopup").valueAsDate = boxDate;
                 else return;
-                if (colorStorage[box.id]) {
-                    let rgb = colorStorage[box.id].substring(4, colorStorage[box.id].length - 1).split(", ");
-                    let colorValue = getColorValue(rgb[0], rgb[1], rgb[2]);
-                    document.getElementById("picker").value = colorValue;
-                }
-                else document.getElementById("picker").value = 50;
                 enterPopup();
             });
 
@@ -179,7 +173,16 @@ function enterPopup() {
 
     const dateInput = document.getElementById('datePopup');
     const date = dateInput.value.split("-");
-    const storedNote = noteStorage[`${date[1] - 1},${date[2] - 1}`];
+
+    const id = `${date[1] - 1},${date[2] - 1}`;
+    if (colorStorage[id]) {
+        let rgb = colorStorage[id].substring(4, colorStorage[id].length - 1).split(", ");
+        let colorValue = getColorValue(rgb[0], rgb[1], rgb[2]);
+        document.getElementById("picker").value = colorValue;
+    }
+    else document.getElementById("picker").value = 50;
+
+    const storedNote = noteStorage[id];
     if (storedNote) {
         document.getElementById('note').value = storedNote;
     }
