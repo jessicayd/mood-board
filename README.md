@@ -25,7 +25,7 @@ live at [github pages](https://theheisenbugs.github.io/mood-board/)
 - Responsiveness for seamless usage on mobile and tablet devices.
 
 ## Displays
-<img width="1000" alt="image" src="https://github.com/theheisenbugs/mood-board/assets/106443799/74dc0593-d3d4-4588-901f-363877248fc9">
+<img width="1000" alt="image" src="https://github.com/theheisenbugs/mood-board/assets/106443799/4162c6a1-1071-4b4a-8a37-e36514cc5fe3">
 <img width="1000" alt="image" src="https://github.com/theheisenbugs/mood-board/assets/106443799/181b4f1d-7170-4874-9942-dbef9a6c6876">
 
 ## Built With
