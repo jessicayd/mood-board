@@ -14,6 +14,7 @@ Live at [Github Pages](https://theheisenbugs.github.io/mood-board/).
 ## features
 - Interactive calendar grid.
 - User-friendly color scale for choosing mood colors, with both drag and click functionalities.
+- Restricts inputting entries only for dates that have already passed.
 - Option to attach short notes to each day's mood.
 - Reset option to revert box colors.
 - Visual representation of the average mood color for the year.
