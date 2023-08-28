@@ -29,8 +29,8 @@ if (localStorage.getItem('noteStorage') != null) {
 }
 
 function createBoard() {
-    document.getElementById("date").innerHTML = `${monthNames[currDate.getMonth()]} ${currDate.getDate()}, ${year}`;
-    document.getElementById("datePopup").valueAsDate = new Date(year, month, day);
+    document.getElementById("date").innerHTML = `${monthNames[month]} ${day}, ${year}`;
+    document.getElementById("datePopup").valueAsDate = new Date(Date.UTC(year, month, day));
 
     const daysContainer = document.getElementById("days");
     for (let i = 1; i <= 31; i++) {
@@ -78,13 +78,15 @@ function createBoard() {
             box.id = `${i},${j}`;
             box.id = `${i},${j}`;
 
-            const boxDate = new Date(year, i, j + 1);
+
+            const boxDate = new Date(Date.UTC(year, i, j + 1));
             let isValidDate = (i == boxDate.getMonth());
             if (!isValidDate) box.style.backgroundColor = "#cbc8c860";
 
             box.addEventListener('click', function() {
                 if (isValidDate) document.getElementById("datePopup").valueAsDate = boxDate;
                 else return;
+                console.log(boxDate);
                 enterPopup();
             });
 
