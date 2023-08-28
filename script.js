@@ -14,13 +14,12 @@ let totalColorValue = 0;
 let totalColors = 0;
 
 let colorStorage = {};
-let avgColor = "rgb(238, 238, 238)";
 
 if (localStorage.getItem('colorStorage') != null) {
     colorStorage = JSON.parse(localStorage.getItem('colorStorage'));
 }
 if (localStorage.getItem('avgColor') != null) {
-    avgColor = localStorage.getItem('avgColor');
+    localStorage.getItem('avgColor');
 }
 
 let noteStorage = {};
