@@ -80,13 +80,13 @@ function createBoard() {
 
 
             const boxDate = new Date(Date.UTC(year, i, j + 1));
-            let isValidDate = (i == boxDate.getMonth());
+            let isValidDate = (i == boxDate.getUTCMonth());
+        
             if (!isValidDate) box.style.backgroundColor = "#cbc8c860";
 
             box.addEventListener('click', function() {
                 if (isValidDate) document.getElementById("datePopup").valueAsDate = boxDate;
                 else return;
-                console.log(boxDate);
                 enterPopup();
             });
 
@@ -161,7 +161,7 @@ function exitPopup() {
     setTimeout(function() {
         popup.style.display = "none";
         overlay.style.display = "none";
-        document.getElementById("datePopup").valueAsDate = new Date(year, month, day);
+        document.getElementById("datePopup").valueAsDate = new Date(Date.UTC(year, month, day));
         document.getElementById('datePopup').style.marginBottom = "10px";
         document.getElementById('error').style.display = "none";
     }, 200);
